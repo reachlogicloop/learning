@@ -22,9 +22,8 @@
   .spk{font-size:28px;background:#ffd23f;padding:8px 18px;margin-right:12px;vertical-align:middle}
   .fb{font-size:26px;font-weight:bold;margin-top:14px;min-height:40px}
   .tbl{font-size:22px;border-collapse:collapse;width:100%}.tbl td{border:3px solid #2b7de9;padding:8px 14px}
-  .tbl td:first-child{background:#fff6d6;font-weight:bold;width:30%}
+  .tbl td:first-child{background:#fff6d6;font-weight:bold;width:28%}
   .check{font-size:24px;padding:12px 28px;background:#2b7de9;color:#fff;margin-top:10px}
-  .clk{display:block;margin:10px 0}
 </style>
 </head>
 <body>
@@ -39,63 +38,58 @@
 <script>
 /* =====================================================
    CONFIG: CHANGE ONLY THIS SECTION FOR A NEW LESSON
-   info(tag, title, text, table?, clock?)
-   mc(mode, question, [options], answerNumber, table?, clock?)
+   info(tag, title, text, table?)
+   mc(mode, question, [options], answerNumber, table?)
    table = [["Row label","Row info"], ...]
-   clock = [hour, minute]
    ===================================================== */
-const EVENT = [
-  ["📚 Event","LIBRARY EVENT: Life of a Social Media Influencer"],
-  ["📍 Where","Logan Room"],
-  ["📅 When","July 15, 4:00–5:00pm (6-week series, presentation 4/6)"],
-  ["👥 Age Group","Young Adults"],
-  ["ℹ️ About","Explore the life of a social media influencer. Learn about technology, networking, and audience-building skills to create a profitable, successful online career."],
-  ["✍️ Sign Up","Registration not required"]
+const LABEL = [
+  ["💊 Uses","Provides short-term relief of minor sore throat and cough discomfort."],
+  ["⚠️ Warnings","Consult a doctor right away if a sore throat is intense, continues beyond 2 days, or comes with fever, headache, rash, swelling, nausea, or vomiting. These may be signs of a serious issue."]
 ];
 
 const CONFIG = {
-  title: "📚 Functional Reading: Event Information",
+  title: "💊 Functional Reading: Medicine Safety (1)",
   passScore: 4,
 
   pages: [
-    info("Welcome","Let's Learn to Read Event Information!","Today you will learn words and skills for reading a flyer about an event. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
+    info("Welcome","Let's Learn to Read a Medicine Label!","Today you will learn words and skills for reading a medicine label. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
 
     // ---- VOCABULARY ----
-    info("Vocabulary","Event 🎉","An event is something that happens at a certain place and time."),
-    info("Vocabulary","Series 🔢","A series is a group of events that happen one after another."),
-    info("Vocabulary","Registration ✍️","Registration means signing up. 'Registration not required' means you do not have to sign up."),
-    info("Vocabulary","Young Adults 🧑","Young adults are teenagers and people in their early twenties. The event is made for this age group."),
-    info("Vocabulary","Social Media Influencer 📱","An influencer is a person who shares posts online. Many people follow and watch them."),
+    info("Vocabulary","Uses 💊","Uses tell you why people take the medicine. It tells what the medicine helps."),
+    info("Vocabulary","Warnings ⚠️","Warnings tell you when to be careful or when to get help."),
+    info("Vocabulary","Relief 😌","Relief means the pain or sickness feels better."),
+    info("Vocabulary","Consult 🩺","Consult means to ask. Consult a doctor means ask a doctor."),
+    info("Vocabulary","Fever 🌡️","A fever is when your body is too hot. It is a sign you may be sick."),
 
     // ---- CONCEPTS ----
-    info("Concept","Reading an Event Flyer","A flyer tells you what, where, when, and who. Look for each one in the flyer.",EVENT),
-    info("Concept","Where and When","WHERE tells the place. WHEN tells the date and time. 4:00–5:00pm means from 4pm to 5pm."),
-    info("Concept","What Does 4/6 Mean?","4/6 means 4 out of 6. This is the 4th talk in a series of 6 talks."),
-    info("Concept","Four Kinds of Questions","SUMMARY: What is the main idea? DETAIL: Find the answer in the flyer. IDENTIFY FACTS: Find the exact facts. TRANSFER: Use what you learned in real life."),
+    info("Concept","Reading a Medicine Label","A label has parts. USES tells why to take it. WARNINGS tells when to get help.",LABEL),
+    info("Concept","Reading the Uses","Look at the USES. This tells when someone would take the medicine. Here it is for a minor sore throat and cough."),
+    info("Concept","Reading the Warnings","Warnings list signs of a bigger problem. If you see these signs, ask a doctor right away."),
+    info("Concept","Staying Safe","Always read the label first. Ask an adult, a doctor, or a pharmacist if you are not sure. Keep medicine in a safe place."),
 
     // ---- PRACTICE ----
     info("Practice","Practice Time! ⭐","Now you try. You will see if you are right. It is OK to make mistakes."),
-    mc("practice","DETAIL: Where is the event?",["Logan Room","The gym","The cafeteria"],0,EVENT),
-    mc("practice","DETAIL: Who is the event for?",["Little kids","Young adults","Grandparents"],1,EVENT),
-    mc("practice","IDENTIFY FACTS: Do you have to sign up?",["👍 Yes","👎 No"],1,EVENT),
-    mc("practice","SUMMARY: What is the event about?",["Being a social media influencer","Cooking dinner","Playing soccer"],0,EVENT),
-    mc("practice","What does 4/6 mean?",["It is the 4th talk out of 6","It costs $4","It starts at 4:06"],0,EVENT),
+    mc("practice","What does USES tell you?",["Why people take the medicine","How much it costs","What color it is"],0,LABEL),
+    mc("practice","Is a fever a sign to ask a doctor?",["👍 Yes","👎 No"],0,LABEL),
+    mc("practice","A sore throat lasts 3 days. What should you do?",["Ask a doctor","Do nothing","Take more medicine"],0,LABEL),
+    mc("practice","What does relief mean?",["Feeling better","Feeling worse","Feeling sleepy"],0),
+    mc("practice","SUMMARY: This medicine is for a minor ____.",["Sore throat and cough","Broken arm","Headache only"],0,LABEL),
 
     // ---- TEST ----
     info("Test","Test Time! 📝","Now show what you know. You will see your score at the end. Do your best!"),
-    mc("test","SUMMARY: What is happening at the library?",["A talk about the life of a social media influencer","A book sale","A movie night"],0,EVENT),
-    mc("test","DETAIL: What day is this event?",["July 4","July 15","June 15"],1,EVENT),
-    mc("test","IDENTIFY FACTS: When does this event occur?",["July 15, 4:00–5:00pm","July 15, 5:00–6:00pm","July 4, 4:00–5:00pm"],0,EVENT),
-    mc("test","TRANSFER INFORMATION: How would someone find more events like this?",["Check the library website or ask a librarian","Look in the refrigerator","Guess"],0),
-    mc("test","IDENTIFY FACTS: Do you need to register for this event?",["👍 Yes","👎 No, registration is not required"],1,EVENT),
+    mc("test","SUMMARY: When would someone use this medicine?",["For a minor sore throat and cough","For a broken bone","For a stomachache"],0,LABEL),
+    mc("test","DETAIL: When should someone stop taking this medicine and ask a doctor?",["If the sore throat continues beyond 2 days or comes with fever","If they feel better right away","If it is Monday"],0,LABEL),
+    mc("test","INFERENCE: Where would someone store this medicine?",["In a safe place like a medicine cabinet","On the playground","In the bathtub"],0),
+    mc("test","EVALUATE: How would someone know if this medicine is working?",["The sore throat and cough feel better","They feel more sick","Nothing changes"],0),
+    mc("test","DETAIL: After how many days of a sore throat should you ask a doctor?",["More than 2 days","After 1 hour","After 1 year"],0,LABEL),
 
     {type:"result"}
   ]
 };
 
 /* ============ HELPERS (do not change) ============ */
-function info(tag,title,text,table,clock){return {type:"info",tag,title,text,table,clock};}
-function mc(mode,q,opts,ans,table,clock){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table,clock};}
+function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
+function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
 
 /* ============ ENGINE (do not change) ============ */
 const pages=CONFIG.pages; let i=0; const answers={}, done={};
@@ -116,20 +110,6 @@ function readText(p){
   return t;
 }
 function tableHTML(t){return t?"<table class='tbl'>"+t.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")+"</table><br>":"";}
-function clockHTML(c){
-  if(!c) return "";
-  const [h,m]=c, ha=((h%12)+m/60)*30, ma=m*6;
-  let s=`<svg class="clk" width="240" height="240" viewBox="0 0 200 200">
-    <circle cx="100" cy="100" r="92" fill="#fff" stroke="#1d5fb8" stroke-width="6"/>`;
-  for(let n=1;n<=12;n++){
-    const a=n*30*Math.PI/180;
-    s+=`<text x="${100+70*Math.sin(a)}" y="${100-70*Math.cos(a)+7}" font-size="20" font-weight="bold" text-anchor="middle">${n}</text>`;
-  }
-  s+=`<line x1="100" y1="100" x2="100" y2="52" stroke="#1b2a41" stroke-width="8" stroke-linecap="round" transform="rotate(${ha} 100 100)"/>
-      <line x1="100" y1="100" x2="100" y2="30" stroke="#e5484d" stroke-width="5" stroke-linecap="round" transform="rotate(${ma} 100 100)"/>
-      <circle cx="100" cy="100" r="6" fill="#1b2a41"/></svg>`;
-  return s;
-}
 function isCorrect(q){ return answers[pages.indexOf(q)]===q.ans; }
 
 function render(){
@@ -141,17 +121,17 @@ function render(){
   if(p.type==="info"){
     h=`<span class="tag">${p.tag}</span>
        <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
-       <p class="big">${p.text}</p>${clockHTML(p.clock)}${tableHTML(p.table)}`;
+       <p class="big">${p.text}</p>${tableHTML(p.table)}`;
   } else if(p.type==="result"){
     let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
     h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
        <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
-       <p class="big">${s>=CONFIG.passScore?"Wow! You are a reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
+       <p class="big">${s>=CONFIG.passScore?"Wow! You are a label-reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
        <button class="check" onclick="i=0;render()">Start over</button>`;
     $("next").disabled=true;
   } else {
     h=`<span class="tag">${p.tag}</span>
-       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${clockHTML(p.clock)}${tableHTML(p.table)}`;
+       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
     p.opts.forEach((o,k)=>{
       let c="opt"; const chosen=answers[i]===k;
       if(chosen) c+=" sel";
@@ -165,11 +145,11 @@ function render(){
   if(p.mode==="practice"&&done[i]) showFB();
   window.scrollTo(0,0);
 }
-function pick(k){ answers[i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
+function pick(k){ answers[k===undefined?i:i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
 function showFB(){
   const ok=isCorrect(pages[i]), f=$("fb"); if(!f) return;
   f.style.color=ok?"#1e9e45":"#c0262b";
-  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the flyer again.";
+  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the label again.";
   $("next").disabled=false;
 }
 $("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
