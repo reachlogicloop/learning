@@ -12,26 +12,98 @@
         margin: 0;
         padding: 0;
     }
+/* Full screen login background */
+#loginScreen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #e8f1ff, #f4edff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    z-index: 9999;
+}
+
+/* Login card */
+.login-box {
+    background: white;
+    width: 100%;
+    max-width: 440px;
+    padding: 50px 40px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(50, 70, 120, 0.12);
+}
+
+/* Heading */
+.login-box h1 {
+    font-size: 30px;
+    color: #315fc9;
+    margin-bottom: 18px;
+}
+
+/* Description */
+.login-box p {
+    color: #718096;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+/* Passcode input */
+.login-box input {
+    width: 100%;
+    padding: 17px;
+    border: 2px solid #dce5f2;
+    border-radius: 12px;
+    font-size: 18px;
+    text-align: center;
+    outline: none;
+    margin-bottom: 22px;
+}
+
+.login-box input:focus {
+    border-color: #4776e6;
+    box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.12);
+}
+
+/* Login button */
 .login-box button {
     width: 100%;
-    padding: 14px;
+    padding: 17px;
     background: #4776e6;
     color: white;
     border: none;
-    border-radius: 10px;
-    font-size: 17px;
+    border-radius: 12px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
 }
 
 .login-box button:hover {
     background: #315fc9;
+    transform: translateY(-2px);
 }
 
-#errorMessage {
-    color: red;
-    margin-top: 15px;
+/* Error message */
+.login-box #errorMessage {
+    color: #e05252;
+    margin-top: 18px;
+    margin-bottom: 0;
     font-size: 14px;
+    min-height: 20px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 500px) {
+    .login-box {
+        padding: 35px 25px;
+    }
+
+    .login-box h1 {
+        font-size: 25px;
+    }
 }
     body {
         font-family: "Arial", sans-serif;
@@ -211,17 +283,31 @@
 <body>
    <div id="loginScreen">
     <div class="login-box">
-        <h1>🌟 My Learning Center</h1>
-        <h2>Enter your passcode to continue.</h2>
 
-        <input type="textbox" id="passcode"
-               placeholder="Enter passcode"
-               onkeydown="if(event.key==='Enter') checkPasscode()">
-<p></p>
-       <h2></h2>
-        <button onclick="checkPasscode()">Enter</button>
+        <div style="font-size: 55px; margin-bottom: 18px;">
+            🌟
+        </div>
+
+        <h1>My Learning Center</h1>
+
+        <p>
+            Welcome, Learner! 👋<br>
+            Enter your passcode to start learning.
+        </p>
+
+        <input
+            type="password"
+            id="passcode"
+            placeholder="Enter your passcode"
+            onkeydown="if(event.key === 'Enter') checkPasscode()"
+        >
+
+        <button onclick="checkPasscode()">
+            Let's Start Learning →
+        </button>
 
         <p id="errorMessage"></p>
+
     </div>
 </div>
 
