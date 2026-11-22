@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson</title>
+<style>
+  body{margin:0;font-family:Verdana,Arial,sans-serif;background:#eaf4ff;color:#1b2a41}
+  header{background:#2b7de9;color:#fff;padding:12px 20px;font-size:22px}
+  #bar{height:12px;background:#cfe3fb}#fill{height:100%;width:0;background:#34c759;transition:.3s}
+  main{max-width:820px;margin:20px auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 4px 14px #0002;min-height:380px}
+  .tag{display:inline-block;background:#ffd23f;border-radius:20px;padding:4px 16px;font-weight:bold;margin-bottom:12px}
+  h1{margin:8px 0 16px}
+  .big{font-size:30px;line-height:1.5}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:14px}
+  .opt{display:block;width:100%;text-align:left;font-size:26px;padding:16px;margin:10px 0;background:#f2f6fb;border:3px solid #9bb8dd}
+  .opt:hover{background:#dcebff}.opt.sel{border-color:#2b7de9;background:#cfe3ff}
+  .opt.good{background:#c9f5d2;border-color:#34c759}.opt.bad{background:#ffd6d6;border-color:#e5484d}
+  #nav{display:flex;justify-content:space-between;max-width:820px;margin:0 auto 30px;padding:0 10px}
+  .nb{font-size:26px;padding:14px 36px;background:#34c759;color:#fff}
+  .nb.back{background:#8aa0bd}.nb:disabled{background:#c5ccd6;cursor:not-allowed}
+  .spk{font-size:28px;background:#ffd23f;padding:8px 18px;margin-right:12px;vertical-align:middle}
+  .fb{font-size:26px;font-weight:bold;margin-top:14px;min-height:40px}
+  .tbl{font-size:22px;border-collapse:collapse;width:100%}.tbl td{border:3px solid #2b7de9;padding:8px 14px}
+  .tbl td:first-child{background:#fff6d6;font-weight:bold;width:24%}
+  .check{font-size:24px;padding:12px 28px;background:#2b7de9;color:#fff;margin-top:10px}
+</style>
+</head>
+<body>
+<header id="hdr"></header>
+<div id="bar"><div id="fill"></div></div>
+<main id="page"></main>
+<div id="nav">
+  <button class="nb back" id="back">⬅ Back</button>
+  <button class="nb" id="next">Next ➡</button>
+</div>
+
+<script>
+/* =====================================================
+   CONFIG: CHANGE ONLY THIS SECTION FOR A NEW LESSON
+   info(tag, title, text, table?)
+   mc(mode, question, [options], answerNumber, table?)
+   table = [["Row label","Row info"], ...]
+   ===================================================== */
+const AED = [
+  ["🚨 First","Call 911"],
+  ["❤️ Then","Start CPR"],
+  ["⚡ Then","Get AED"],
+  ["1️⃣ Step 1","Turn on AED and follow commands."],
+  ["2️⃣ Step 2","Remove the victim's shirt or top clothing."],
+  ["3️⃣ Step 3","Remove electrodes and place on victim's chest."],
+  ["4️⃣ Step 4","Clear the victim."],
+  ["5️⃣ Step 5","If AED directs a shock, apply a shock."],
+  ["6️⃣ Step 6","If AED does not direct a shock, continue with CPR."]
+];
+
+const CONFIG = {
+  title: "⚡ Functional Reading: Safety Emergencies (7)",
+  passScore: 4,
+
+  pages: [
+    info("Welcome","Let's Learn to Read AED Instructions!","Today you will learn words and skills for reading emergency instructions. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
+
+    // ---- VOCABULARY ----
+    info("Vocabulary","AED ⚡","An AED is a machine that can give a shock to help a heart that has stopped working right."),
+    info("Vocabulary","CPR ❤️","CPR means pushing on a person's chest to help move blood when the heart has stopped."),
+    info("Vocabulary","Victim 🧍","A victim is a person who is hurt and needs help."),
+    info("Vocabulary","Electrode 🩹","An electrode is a sticky pad. It goes on the chest and connects to the AED."),
+    info("Vocabulary","Clear 🙌","Clear means everyone stands back and no one touches the person."),
+
+    // ---- CONCEPTS ----
+    info("Concept","Reading the Instructions","The top part tells what to do first: call 911, start CPR, and get an AED. The numbers below tell what to do next.",AED),
+    info("Concept","Do the Steps in Order","Follow the numbers. Do step 1, then step 2, then step 3. Do not skip steps."),
+    info("Concept","The AED Tells You What to Do 🔊","The AED gives voice commands. Listen and follow. It decides if a shock is needed."),
+    info("Concept","Learn the Real Skills","This lesson helps you practice reading. To learn real CPR and AED skills, take a class from a trained teacher."),
+
+    // ---- PRACTICE ----
+    info("Practice","Practice Time! ⭐","Now you try. You will see if you are right. It is OK to make mistakes."),
+    mc("practice","What number do you call in an emergency?",["411","911","111"],1,AED),
+    mc("practice","What is the FIRST step with the AED?",["Remove the shirt","Clear the victim","Turn on the AED and follow commands"],2,AED),
+    mc("practice","Where do the electrodes go?",["On the victim's chest","On the victim's feet","On the floor"],0,AED),
+    mc("practice","If the AED directs a shock, what do you do?",["Walk away","Apply a shock","Turn it off"],1,AED),
+    mc("practice","What does a victim mean?",["A person who needs help","A kind of machine","A helper"],0),
+
+    // ---- TEST ----
+    info("Test","Test Time! 📝","Now show what you know. You will see your score at the end. Do your best!"),
+    mc("test","SUMMARY: When would someone need AED instructions?",["During a heart emergency when a person needs help right away","When they are making dinner","When they are late for class"],0,AED),
+    mc("test","DETAIL: How will someone know to apply a shock?",["The AED directs a shock","The victim says so","The clock says so"],0,AED),
+    mc("test","VOCABULARY: What is an electrode?",["A loud alarm","A sticky pad that goes on the chest","A kind of shirt"],1,AED),
+    mc("test","SEQUENCE: What happens after calling 9-1-1?",["Go home","Start CPR","Turn off the AED"],1,AED),
+    mc("test","DETAIL: If the AED does not direct a shock, what should you do?",["Stop everything","Continue with CPR","Give another shock"],1,AED),
+
+    {type:"result"}
+  ]
+};
+
+/* ============ HELPERS (do not change) ============ */
+function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
+function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
+
+/* ============ ENGINE (do not change) ============ */
+const pages=CONFIG.pages; let i=0; const answers={}, done={};
+const $=id=>document.getElementById(id);
+const testQs=pages.filter(p=>p.mode==="test");
+document.title=CONFIG.title.replace(/^[^\w]+/,""); $("hdr").textContent=CONFIG.title;
+
+function speak(t){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.rate=0.85; speechSynthesis.speak(u);
+}
+function readText(p){
+  if(p.type==="info") return p.title.replace(/[^\w\s'&]/g,"")+". "+p.text;
+  if(p.type==="result") return $("page").innerText;
+  let t=p.q+" ";
+  if(p.opts) t+=p.opts.map((o,k)=>"Choice "+"ABCDE"[k]+". "+o+".").join(" ");
+  return t;
+}
+function tableHTML(t){return t?"<table class='tbl'>"+t.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")+"</table><br>":"";}
+function isCorrect(q){ return answers[pages.indexOf(q)]===q.ans; }
+
+function render(){
+  const p=pages[i], m=$("page"); let h="";
+  $("fill").style.width=(i/(pages.length-1)*100)+"%";
+  $("back").disabled=i===0;
+  $("next").textContent=i===pages.length-1?"Done ✅":"Next ➡";
+  $("next").disabled=false;
+  if(p.type==="info"){
+    h=`<span class="tag">${p.tag}</span>
+       <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
+       <p class="big">${p.text}</p>${tableHTML(p.table)}`;
+  } else if(p.type==="result"){
+    let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
+    h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
+       <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
+       <p class="big">${s>=CONFIG.passScore?"Wow! You are a safety reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
+       <button class="check" onclick="i=0;render()">Start over</button>`;
+    $("next").disabled=true;
+  } else {
+    h=`<span class="tag">${p.tag}</span>
+       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
+    p.opts.forEach((o,k)=>{
+      let c="opt"; const chosen=answers[i]===k;
+      if(chosen) c+=" sel";
+      if(p.mode==="practice"&&done[i]){ if(k===p.ans) c+=" good"; else if(chosen) c+=" bad"; }
+      h+=`<button class="${c}" onclick="pick(${k})">${"ABCDE"[k]}. ${o}</button>`;
+    });
+    if(p.mode==="practice") h+=`<div class="fb" id="fb"></div>`;
+    $("next").disabled = (p.mode==="practice") ? !done[i] : answers[i]==null;
+  }
+  m.innerHTML=h;
+  if(p.mode==="practice"&&done[i]) showFB();
+  window.scrollTo(0,0);
+}
+function pick(k){ answers[i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
+function showFB(){
+  const ok=isCorrect(pages[i]), f=$("fb"); if(!f) return;
+  f.style.color=ok?"#1e9e45":"#c0262b";
+  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the steps again.";
+  $("next").disabled=false;
+}
+$("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
+$("back").onclick=()=>{ if(i>0){i--;render();} };
+render();
+</script>
+</body>
+</html>

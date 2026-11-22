@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson</title>
+<style>
+  body{margin:0;font-family:Verdana,Arial,sans-serif;background:#eaf4ff;color:#1b2a41}
+  header{background:#2b7de9;color:#fff;padding:12px 20px;font-size:22px}
+  #bar{height:12px;background:#cfe3fb}#fill{height:100%;width:0;background:#34c759;transition:.3s}
+  main{max-width:820px;margin:20px auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 4px 14px #0002;min-height:380px}
+  .tag{display:inline-block;background:#ffd23f;border-radius:20px;padding:4px 16px;font-weight:bold;margin-bottom:12px}
+  h1{margin:8px 0 16px}
+  .big{font-size:30px;line-height:1.5}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:14px}
+  .opt{display:block;width:100%;text-align:left;font-size:26px;padding:16px;margin:10px 0;background:#f2f6fb;border:3px solid #9bb8dd}
+  .opt:hover{background:#dcebff}.opt.sel{border-color:#2b7de9;background:#cfe3ff}
+  .opt.good{background:#c9f5d2;border-color:#34c759}.opt.bad{background:#ffd6d6;border-color:#e5484d}
+  #nav{display:flex;justify-content:space-between;max-width:820px;margin:0 auto 30px;padding:0 10px}
+  .nb{font-size:26px;padding:14px 36px;background:#34c759;color:#fff}
+  .nb.back{background:#8aa0bd}.nb:disabled{background:#c5ccd6;cursor:not-allowed}
+  .spk{font-size:28px;background:#ffd23f;padding:8px 18px;margin-right:12px;vertical-align:middle}
+  .fb{font-size:26px;font-weight:bold;margin-top:14px;min-height:40px}
+  .tbl{font-size:22px;border-collapse:collapse;width:100%}.tbl td{border:3px solid #2b7de9;padding:8px 14px}
+  .tbl td:first-child{background:#fff6d6;font-weight:bold;width:40%}
+  .check{font-size:24px;padding:12px 28px;background:#2b7de9;color:#fff;margin-top:10px}
+</style>
+</head>
+<body>
+<header id="hdr"></header>
+<div id="bar"><div id="fill"></div></div>
+<main id="page"></main>
+<div id="nav">
+  <button class="nb back" id="back">⬅ Back</button>
+  <button class="nb" id="next">Next ➡</button>
+</div>
+
+<script>
+/* =====================================================
+   CONFIG: CHANGE ONLY THIS SECTION FOR A NEW LESSON
+   info(tag, title, text, table?)
+   mc(mode, question, [options], answerNumber, table?)
+   table = [["Row label","Row info"], ...]
+   ===================================================== */
+const VISITS = [
+  ["📋 Reason for Visit","DocChart"],
+  ["🩺 Choice 1","Physical"],
+  ["🔁 Choice 2","Follow-Up"],
+  ["🆕 Choice 3","New Problem"],
+  ["💻 Choice 4","Telehealth"]
+];
+
+const CONFIG = {
+  title: "👩‍⚕️ Functional Reading: Doctor's Report (15)",
+  passScore: 4,
+
+  pages: [
+    info("Welcome","Let's Learn to Choose a Reason for a Visit!","Today you will learn words and skills for picking the right kind of doctor visit. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
+
+    // ---- VOCABULARY ----
+    info("Vocabulary","Physical 🩺","A physical is a check-up to see if you are healthy. Many people go once a year."),
+    info("Vocabulary","Follow-Up 🔁","A follow-up is a visit after you already saw the doctor. The doctor checks how you are doing."),
+    info("Vocabulary","New Problem 🆕","A new problem is something wrong that you have not talked to the doctor about yet."),
+    info("Vocabulary","Telehealth 💻","Telehealth is a visit with the doctor by video or phone. You stay at home."),
+    info("Vocabulary","Appointment 📅","An appointment is a set time to see the doctor."),
+
+    // ---- CONCEPTS ----
+    info("Concept","Reading the List","The list shows four reasons for a visit. Read each one. Choose the one that matches why you need the doctor.",VISITS),
+    info("Concept","Match Your Reason","Yearly check-up? Pick Physical. Seeing the doctor again after treatment? Pick Follow-Up. Something new hurts? Pick New Problem."),
+    info("Concept","What Is Telehealth?","Telehealth is a different kind of visit. You do not go to the office. You talk to the doctor on a screen or phone."),
+    info("Concept","Why Choose Carefully?","Each visit needs different time and planning. When you pick the right one, the office is ready for you."),
+
+    // ---- PRACTICE ----
+    info("Practice","Practice Time! ⭐","Now you try. You will see if you are right. It is OK to make mistakes."),
+    mc("practice","What is a physical?",["A yearly check-up","A kind of food","A sports game"],0,VISITS),
+    mc("practice","You are home and want to see the doctor by video. Pick:",["Physical","Follow-Up","Telehealth"],2,VISITS),
+    mc("practice","You saw the doctor last week and need a check on your progress. Pick:",["Follow-Up","New Problem","Physical"],0,VISITS),
+    mc("practice","Your arm hurts and you have never told the doctor. Pick:",["Physical","New Problem","Follow-Up"],1,VISITS),
+    mc("practice","How many reasons are on the list?",["2","4","8"],1,VISITS),
+
+    // ---- TEST ----
+    info("Test","Test Time! 📝","Now show what you know. You will see your score at the end. Do your best!"),
+    mc("test","SUMMARY: What is this a list of?",["Types of appointments","Foods","Doctors' names"],0,VISITS),
+    mc("test","DETAIL: How many different types of appointments are there?",["3","4","5"],1,VISITS),
+    mc("test","PREDICT: Why does it matter which appointment you choose?",["The office can plan the right time and be ready for you","It does not matter","It changes your name"],0),
+    mc("test","INFERENCE: How is a telehealth appointment different than the others?",["It is done by video or phone, not in the office","It costs a million dollars","It is for pets"],0,VISITS),
+    mc("test","DETAIL: Which would you pick for a yearly check-up?",["Telehealth","Physical","New Problem"],1,VISITS),
+
+    {type:"result"}
+  ]
+};
+
+/* ============ HELPERS (do not change) ============ */
+function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
+function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
+
+/* ============ ENGINE (do not change) ============ */
+const pages=CONFIG.pages; let i=0; const answers={}, done={};
+const $=id=>document.getElementById(id);
+const testQs=pages.filter(p=>p.mode==="test");
+document.title=CONFIG.title.replace(/^[^\w]+/,""); $("hdr").textContent=CONFIG.title;
+
+function speak(t){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.rate=0.85; speechSynthesis.speak(u);
+}
+function readText(p){
+  if(p.type==="info") return p.title.replace(/[^\w\s'&]/g,"")+". "+p.text;
+  if(p.type==="result") return $("page").innerText;
+  let t=p.q+" ";
+  if(p.opts) t+=p.opts.map((o,k)=>"Choice "+"ABCDE"[k]+". "+o+".").join(" ");
+  return t;
+}
+function tableHTML(t){return t?"<table class='tbl'>"+t.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")+"</table><br>":"";}
+function isCorrect(q){ return answers[pages.indexOf(q)]===q.ans; }
+
+function render(){
+  const p=pages[i], m=$("page"); let h="";
+  $("fill").style.width=(i/(pages.length-1)*100)+"%";
+  $("back").disabled=i===0;
+  $("next").textContent=i===pages.length-1?"Done ✅":"Next ➡";
+  $("next").disabled=false;
+  if(p.type==="info"){
+    h=`<span class="tag">${p.tag}</span>
+       <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
+       <p class="big">${p.text}</p>${tableHTML(p.table)}`;
+  } else if(p.type==="result"){
+    let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
+    h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
+       <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
+       <p class="big">${s>=CONFIG.passScore?"Wow! You are a reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
+       <button class="check" onclick="i=0;render()">Start over</button>`;
+    $("next").disabled=true;
+  } else {
+    h=`<span class="tag">${p.tag}</span>
+       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
+    p.opts.forEach((o,k)=>{
+      let c="opt"; const chosen=answers[i]===k;
+      if(chosen) c+=" sel";
+      if(p.mode==="practice"&&done[i]){ if(k===p.ans) c+=" good"; else if(chosen) c+=" bad"; }
+      h+=`<button class="${c}" onclick="pick(${k})">${"ABCDE"[k]}. ${o}</button>`;
+    });
+    if(p.mode==="practice") h+=`<div class="fb" id="fb"></div>`;
+    $("next").disabled = (p.mode==="practice") ? !done[i] : answers[i]==null;
+  }
+  m.innerHTML=h;
+  if(p.mode==="practice"&&done[i]) showFB();
+  window.scrollTo(0,0);
+}
+function pick(k){ answers[i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
+function showFB(){
+  const ok=isCorrect(pages[i]), f=$("fb"); if(!f) return;
+  f.style.color=ok?"#1e9e45":"#c0262b";
+  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the list again.";
+  $("next").disabled=false;
+}
+$("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
+$("back").onclick=()=>{ if(i>0){i--;render();} };
+render();
+</script>
+</body>
+</html>

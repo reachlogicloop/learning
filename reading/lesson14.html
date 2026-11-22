@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson</title>
+<style>
+  body{margin:0;font-family:Verdana,Arial,sans-serif;background:#eaf4ff;color:#1b2a41}
+  header{background:#2b7de9;color:#fff;padding:12px 20px;font-size:22px}
+  #bar{height:12px;background:#cfe3fb}#fill{height:100%;width:0;background:#34c759;transition:.3s}
+  main{max-width:820px;margin:20px auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 4px 14px #0002;min-height:380px}
+  .tag{display:inline-block;background:#ffd23f;border-radius:20px;padding:4px 16px;font-weight:bold;margin-bottom:12px}
+  h1{margin:8px 0 16px}
+  .big{font-size:30px;line-height:1.5}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:14px}
+  .opt{display:block;width:100%;text-align:left;font-size:26px;padding:16px;margin:10px 0;background:#f2f6fb;border:3px solid #9bb8dd}
+  .opt:hover{background:#dcebff}.opt.sel{border-color:#2b7de9;background:#cfe3ff}
+  .opt.good{background:#c9f5d2;border-color:#34c759}.opt.bad{background:#ffd6d6;border-color:#e5484d}
+  #nav{display:flex;justify-content:space-between;max-width:820px;margin:0 auto 30px;padding:0 10px}
+  .nb{font-size:26px;padding:14px 36px;background:#34c759;color:#fff}
+  .nb.back{background:#8aa0bd}.nb:disabled{background:#c5ccd6;cursor:not-allowed}
+  .spk{font-size:28px;background:#ffd23f;padding:8px 18px;margin-right:12px;vertical-align:middle}
+  .fb{font-size:26px;font-weight:bold;margin-top:14px;min-height:40px}
+  .tbl{font-size:22px;border-collapse:collapse;width:100%}.tbl td{border:3px solid #2b7de9;padding:8px 14px}
+  .tbl td:first-child{background:#fff6d6;font-weight:bold;width:40%}
+  .check{font-size:24px;padding:12px 28px;background:#2b7de9;color:#fff;margin-top:10px}
+</style>
+</head>
+<body>
+<header id="hdr"></header>
+<div id="bar"><div id="fill"></div></div>
+<main id="page"></main>
+<div id="nav">
+  <button class="nb back" id="back">⬅ Back</button>
+  <button class="nb" id="next">Next ➡</button>
+</div>
+
+<script>
+/* =====================================================
+   CONFIG: CHANGE ONLY THIS SECTION FOR A NEW LESSON
+   info(tag, title, text, table?)
+   mc(mode, question, [options], answerNumber, table?)
+   table = [["Row label","Row info"], ...]
+   ===================================================== */
+const PROVIDERS = [
+  ["🩺 Dr. Melissa Rox","Primary Care"],
+  ["👂 Dr. Wilson Banks","Ear/Nose/Throat"],
+  ["🤧 Dr. Felipe Poulos","Allergist"],
+  ["🧠 Dr. Sue Kim","Neurologist"]
+];
+
+const CONFIG = {
+  title: "👩‍⚕️ Functional Reading: Doctor's Report (14)",
+  passScore: 4,
+
+  pages: [
+    info("Welcome","Let's Learn to Select a Doctor!","Today you will learn words and skills for choosing a doctor from a list on the DocChart app. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
+
+    // ---- VOCABULARY ----
+    info("Vocabulary","Provider 🩺","A provider is a doctor or nurse who takes care of you."),
+    info("Vocabulary","Primary Care 🏠","A primary care doctor is the doctor you see first for everyday health, like colds and the flu."),
+    info("Vocabulary","Specialist 🎯","A specialist is a doctor who knows a lot about one part of the body."),
+    info("Vocabulary","Allergist 🤧","An allergist is a doctor who helps with allergies."),
+    info("Vocabulary","Neurologist 🧠","A neurologist is a doctor who helps with the brain and nerves."),
+
+    // ---- CONCEPTS ----
+    info("Concept","Reading the List","The list shows each doctor's name and what kind of doctor they are. The name is on the left. The type of doctor is on the right.",PROVIDERS),
+    info("Concept","Match the Problem","Think about your problem. Then pick the doctor who helps with that. Ear, nose, and throat problems need Ear/Nose/Throat."),
+    info("Concept","Start With Primary Care","For everyday sickness like the flu, start with the primary care doctor. They can send you to a specialist if needed."),
+    info("Concept","Clicking a Doctor","When you click a doctor's name, you can see more about that doctor and choose a time to visit."),
+
+    // ---- PRACTICE ----
+    info("Practice","Practice Time! ⭐","Now you try. You will see if you are right. It is OK to make mistakes."),
+    mc("practice","Which doctor is Primary Care?",["Dr. Sue Kim","Dr. Wilson Banks","Dr. Melissa Rox"],2,PROVIDERS),
+    mc("practice","What does specialist mean?",["A doctor who knows one area well","A kind of medicine","A hospital"],0),
+    mc("practice","Which doctor helps with allergies?",["Dr. Felipe Poulos","Dr. Sue Kim","Dr. Melissa Rox"],0,PROVIDERS),
+    mc("practice","How many doctors are on the list?",["2","4","10"],1,PROVIDERS),
+    mc("practice","Which doctor helps with the brain and nerves?",["Dr. Wilson Banks","Dr. Sue Kim","Dr. Felipe Poulos"],1,PROVIDERS),
+
+    // ---- TEST ----
+    info("Test","Test Time! 📝","Now show what you know. You will see your score at the end. Do your best!"),
+    mc("test","SUMMARY: What is this a list of?",["Doctors and their types","Foods","Sports teams"],0,PROVIDERS),
+    mc("test","DETAIL: What doctor would help with flu symptoms?",["Dr. Sue Kim, Neurologist","Dr. Melissa Rox, Primary Care","Dr. Felipe Poulos, Allergist"],1,PROVIDERS),
+    mc("test","SEQUENCE: What happens after clicking a specific doctor?",["The app turns off","You see that doctor's page or can make an appointment","Nothing happens"],1),
+    mc("test","IMPORTANT INFORMATION: Which doctor is the primary care doctor?",["Dr. Melissa Rox","Dr. Wilson Banks","Dr. Sue Kim"],0,PROVIDERS),
+    mc("test","DETAIL: Which doctor helps with ear, nose, and throat problems?",["Dr. Felipe Poulos","Dr. Sue Kim","Dr. Wilson Banks"],2,PROVIDERS),
+
+    {type:"result"}
+  ]
+};
+
+/* ============ HELPERS (do not change) ============ */
+function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
+function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
+
+/* ============ ENGINE (do not change) ============ */
+const pages=CONFIG.pages; let i=0; const answers={}, done={};
+const $=id=>document.getElementById(id);
+const testQs=pages.filter(p=>p.mode==="test");
+document.title=CONFIG.title.replace(/^[^\w]+/,""); $("hdr").textContent=CONFIG.title;
+
+function speak(t){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.rate=0.85; speechSynthesis.speak(u);
+}
+function readText(p){
+  if(p.type==="info") return p.title.replace(/[^\w\s'&]/g,"")+". "+p.text;
+  if(p.type==="result") return $("page").innerText;
+  let t=p.q+" ";
+  if(p.opts) t+=p.opts.map((o,k)=>"Choice "+"ABCDE"[k]+". "+o+".").join(" ");
+  return t;
+}
+function tableHTML(t){return t?"<table class='tbl'>"+t.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")+"</table><br>":"";}
+function isCorrect(q){ return answers[pages.indexOf(q)]===q.ans; }
+
+function render(){
+  const p=pages[i], m=$("page"); let h="";
+  $("fill").style.width=(i/(pages.length-1)*100)+"%";
+  $("back").disabled=i===0;
+  $("next").textContent=i===pages.length-1?"Done ✅":"Next ➡";
+  $("next").disabled=false;
+  if(p.type==="info"){
+    h=`<span class="tag">${p.tag}</span>
+       <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
+       <p class="big">${p.text}</p>${tableHTML(p.table)}`;
+  } else if(p.type==="result"){
+    let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
+    h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
+       <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
+       <p class="big">${s>=CONFIG.passScore?"Wow! You are a reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
+       <button class="check" onclick="i=0;render()">Start over</button>`;
+    $("next").disabled=true;
+  } else {
+    h=`<span class="tag">${p.tag}</span>
+       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
+    p.opts.forEach((o,k)=>{
+      let c="opt"; const chosen=answers[i]===k;
+      if(chosen) c+=" sel";
+      if(p.mode==="practice"&&done[i]){ if(k===p.ans) c+=" good"; else if(chosen) c+=" bad"; }
+      h+=`<button class="${c}" onclick="pick(${k})">${"ABCDE"[k]}. ${o}</button>`;
+    });
+    if(p.mode==="practice") h+=`<div class="fb" id="fb"></div>`;
+    $("next").disabled = (p.mode==="practice") ? !done[i] : answers[i]==null;
+  }
+  m.innerHTML=h;
+  if(p.mode==="practice"&&done[i]) showFB();
+  window.scrollTo(0,0);
+}
+function pick(k){ answers[i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
+function showFB(){
+  const ok=isCorrect(pages[i]), f=$("fb"); if(!f) return;
+  f.style.color=ok?"#1e9e45":"#c0262b";
+  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the list again.";
+  $("next").disabled=false;
+}
+$("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
+$("back").onclick=()=>{ if(i>0){i--;render();} };
+render();
+</script>
+</body>
+</html>
