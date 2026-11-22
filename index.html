@@ -12,7 +12,27 @@
         margin: 0;
         padding: 0;
     }
+.login-box button {
+    width: 100%;
+    padding: 14px;
+    background: #4776e6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
+.login-box button:hover {
+    background: #315fc9;
+}
+
+#errorMessage {
+    color: red;
+    margin-top: 15px;
+    font-size: 14px;
+}
     body {
         font-family: "Arial", sans-serif;
         background: #f3f7fc;
@@ -186,7 +206,23 @@
 </head>
 
 <body>
+<div id="loginScreen">
+    <div class="login-box">
+        <h1>🌟 My Learning Center</h1>
+        <p>Please enter your passcode to continue.</p>
 
+        <input
+            type="password"
+            id="passcode"
+            placeholder="Enter passcode"
+            onkeydown="if(event.key === 'Enter') checkPasscode()"
+        >
+
+        <button onclick="checkPasscode()">Enter Learning Center</button>
+
+        <p id="errorMessage"></p>
+    </div>
+</div>
 <header>
     <h1>🌟 My Learning Center</h1>
     <p>Learn something new every day!</p>
@@ -271,7 +307,18 @@
     </p>
 
 </div>
+<script>
+function checkPasscode() {
+    const enteredCode = document.getElementById("passcode").value;
 
+    if (enteredCode === "group draw") {
+        document.getElementById("loginScreen").style.display = "none";
+    } else {
+        document.getElementById("errorMessage").innerText =
+            "Incorrect passcode. Please try again.";
+    }
+}
+</script>
 <footer>
     My Learning Center © 2026 | Learning is an adventure!
 </footer>
