@@ -206,23 +206,22 @@
 </head>
 
 <body>
-<div id="loginScreen">
+   <div id="loginScreen">
     <div class="login-box">
         <h1>🌟 My Learning Center</h1>
-        <p>Please enter your passcode to continue.</p>
+        <p>Enter your passcode to continue.</p>
 
-        <input
-            type="password"
-            id="passcode"
-            placeholder="Enter passcode"
-            onkeydown="if(event.key === 'Enter') checkPasscode()"
-        >
+        <input type="password" id="passcode"
+               placeholder="Enter passcode"
+               onkeydown="if(event.key==='Enter') checkPasscode()">
 
-        <button onclick="checkPasscode()">Enter Learning Center</button>
+        <button onclick="checkPasscode()">Enter</button>
 
         <p id="errorMessage"></p>
     </div>
 </div>
+
+<div id="mainScreen" style="display:none;">
 <header>
     <h1>🌟 My Learning Center</h1>
     <p>Learn something new every day!</p>
@@ -313,6 +312,7 @@ function checkPasscode() {
 
     if (enteredCode === "group draw") {
         document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainScreen").style.display = "block";
     } else {
         document.getElementById("errorMessage").innerText =
             "Incorrect passcode. Please try again.";
