@@ -86,7 +86,9 @@ const CONFIG = {
     {type:"result"}
   ]
 };
-
+window.addEventListener("pagehide", () => {
+    MLCProgress.stopTimer("math", "lesson1");
+});
 /* ============ HELPERS (do not change) ============ */
 function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
 function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
