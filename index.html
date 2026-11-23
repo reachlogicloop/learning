@@ -323,7 +323,27 @@
         <h2>Welcome, Nishita! 👋</h2>
         <p>Choose a learning area and start your lesson.</p>
     </div>
+<div>
+    <h3>🔢 Functional Math</h3>
+    <p id="mathProgress">Loading...</p>
+</div>
 
+<script src="progress.js"></script>
+
+<script>
+function updateDashboard() {
+
+    const dashboard = MLCProgress.getDashboard();
+
+    document.getElementById("readingProgress").innerText =
+        dashboard.reading.completed + " lessons completed";
+
+    document.getElementById("mathProgress").innerText =
+        dashboard.math.completed + " lessons completed";
+}
+
+updateDashboard();
+</script>
     <div class="modules">
 
         <!-- FUNCTIONAL READING -->
@@ -337,6 +357,7 @@
                 </div>
             </div>
 
+           
             <div class="lesson-list">
 
       <a href="reading/lesson1.html" class="lesson">
