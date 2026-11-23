@@ -24,6 +24,12 @@
   .tbl{font-size:22px;border-collapse:collapse;width:100%}.tbl td{border:3px solid #2b7de9;padding:8px 14px}
   .tbl td:first-child{background:#fff6d6;font-weight:bold;width:28%}
   .check{font-size:24px;padding:12px 28px;background:#2b7de9;color:#fff;margin-top:10px}
+
+  .completion-area{margin-top:28px;padding:20px;background:#f0f8ff;border:2px solid #cfe3fb;border-radius:16px;text-align:center}
+  .done-btn{font-size:24px;padding:15px 34px;background:#2b7de9;color:#fff;margin-top:10px}
+  .done-btn:disabled{background:#34a853;cursor:default}
+  .saved-note{font-size:18px;color:#218838;font-weight:bold;margin-top:12px}
+  .score-note{font-size:20px;margin-top:12px}
 </style>
 </head>
 <body>
@@ -35,6 +41,7 @@
   <button class="nb" id="next">Next ➡</button>
 </div>
 
+<script src="../progress.js"></script>
 <script>
 /* =====================================================
    CONFIG: CHANGE ONLY THIS SECTION FOR A NEW LESSON
@@ -86,15 +93,27 @@ const CONFIG = {
     {type:"result"}
   ]
 };
-window.addEventListener("pagehide", () => {
-    MLCProgress.stopTimer("reading", "lesson1");
-});
+
 /* ============ HELPERS (do not change) ============ */
 function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
 function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
 
 /* ============ ENGINE (do not change) ============ */
 const pages=CONFIG.pages; let i=0; const answers={}, done={};
+const MODULE_NAME = "reading";
+const LESSON_ID = "lesson1";
+MLCProgress.startLesson(MODULE_NAME, LESSON_ID);
+
+function markLessonDone(){
+  MLCProgress.completeLesson(MODULE_NAME, LESSON_ID);
+  const button = $("doneButton");
+  const note = $("savedNote");
+  if(button){ button.textContent = "✓ Completed!"; button.disabled = true; }
+  if(note) note.textContent = "Your lesson progress has been saved!";
+}
+window.addEventListener("pagehide", function(){
+  MLCProgress.stopTimer(MODULE_NAME, LESSON_ID);
+});
 const $=id=>document.getElementById(id);
 const testQs=pages.filter(p=>p.mode==="test");
 document.title=CONFIG.title.replace(/^[^\w]+/,""); $("hdr").textContent=CONFIG.title;
@@ -125,13 +144,19 @@ function render(){
        <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
        <p class="big">${p.text}</p>${tableHTML(p.table)}`;
   } else if(p.type==="result"){
-    let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
-    h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
-    finishLesson();
-       <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
-       <p class="big">${s>=CONFIG.passScore?"Wow! You are a label-reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
-       <button class="check" onclick="i=0;render()">Start over</button>`;
-    $("next").disabled=true;
+     let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
+     const stars = MLCProgress.saveScore(MODULE_NAME, LESSON_ID, s, testQs.length);
+     h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
+        <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
+        <p class="big">${s>=CONFIG.passScore?"Wow! You are a label-reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
+        <p class="score-note">Your rating: ${"⭐".repeat(stars)}${"☆".repeat(5-stars)}</p>
+        <div class="completion-area">
+          <p class="big">Finished this lesson?</p>
+          <button class="done-btn" id="doneButton" onclick="markLessonDone()">✓ Mark Lesson Done</button>
+          <div id="savedNote" class="saved-note" aria-live="polite"></div>
+        </div>
+        <button class="check" onclick="i=0;render()">Start over</button>`;
+     $("next").disabled=true;
   } else {
     h=`<span class="tag">${p.tag}</span>
        <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
@@ -146,6 +171,15 @@ function render(){
   }
   m.innerHTML=h;
   if(p.mode==="practice"&&done[i]) showFB();
+  if(p.type==="result"){
+    const saved = MLCProgress.getLesson(MODULE_NAME, LESSON_ID);
+    if(saved.status === "Completed"){
+      const button = $("doneButton");
+      const note = $("savedNote");
+      if(button){ button.textContent = "✓ Completed!"; button.disabled = true; }
+      if(note) note.textContent = "Your lesson progress has been saved!";
+    }
+  }
   window.scrollTo(0,0);
 }
 function pick(k){ answers[k===undefined?i:i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
@@ -159,34 +193,5 @@ $("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
 $("back").onclick=()=>{ if(i>0){i--;render();} };
 render();
 </script>
-  <script src="../progress.js"></script>
-
-<script>
-
-// Start lesson tracking when student opens lesson
-MLCProgress.startLesson("reading", "lesson1");
-
-// When student completes the lesson
-function finishLesson() {
-    MLCProgress.completeLesson("reading", "lesson1");
-
-    alert("Great job! Lesson completed ⭐");
-}
-
-// When student submits quiz
-function submitQuiz(score, totalQuestions) {
-
-    const stars = MLCProgress.saveScore(
-        "reading",
-        "lesson1",
-        score,
-        totalQuestions
-    );
-
-    alert("You earned " + stars + " stars!");
-}
-
-</script>
-  
 </body>
 </html>
