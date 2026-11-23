@@ -125,6 +125,7 @@ function render(){
   } else if(p.type==="result"){
     let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
     h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
+    finishLesson();
        <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
        <p class="big">${s>=CONFIG.passScore?"Wow! You are a label-reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
        <button class="check" onclick="i=0;render()">Start over</button>`;
