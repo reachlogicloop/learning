@@ -162,11 +162,11 @@ render();
 <script>
 
 // Start lesson tracking when student opens lesson
-MLCProgress.startLesson("math", "lesson1");
+MLCProgress.startLesson("reading", "lesson1");
 
 // When student completes the lesson
 function finishLesson() {
-    MLCProgress.completeLesson("math", "lesson1");
+    MLCProgress.completeLesson("reading", "lesson1");
 
     alert("Great job! Lesson completed ⭐");
 }
@@ -175,7 +175,7 @@ function finishLesson() {
 function submitQuiz(score, totalQuestions) {
 
     const stars = MLCProgress.saveScore(
-        "math",
+        "reading",
         "lesson1",
         score,
         totalQuestions
