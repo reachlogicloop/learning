@@ -156,5 +156,34 @@ $("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
 $("back").onclick=()=>{ if(i>0){i--;render();} };
 render();
 </script>
+  <script src="../progress.js"></script>
+
+<script>
+
+// Start lesson tracking when student opens lesson
+MLCProgress.startLesson("math", "lesson1");
+
+// When student completes the lesson
+function finishLesson() {
+    MLCProgress.completeLesson("math", "lesson1");
+
+    alert("Great job! Lesson completed ⭐");
+}
+
+// When student submits quiz
+function submitQuiz(score, totalQuestions) {
+
+    const stars = MLCProgress.saveScore(
+        "math",
+        "lesson1",
+        score,
+        totalQuestions
+    );
+
+    alert("You earned " + stars + " stars!");
+}
+
+</script>
+  
 </body>
 </html>
