@@ -100,4 +100,66 @@ function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Tes
 const pages=CONFIG.pages; let i=0; const answers={}, done={};
 const $=id=>document.getElementById(id);
 const testQs=pages.filter(p=>p.mode==="test");
-document.title=CONFIG.title.replace(/^[^\w]+/,"");
+document.title=CONFIG.title.replace(/^[^\w]+/,""); $("hdr").textContent=CONFIG.title;
+
+function speak(t){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.rate=0.85; speechSynthesis.speak(u);
+}
+function readText(p){
+  if(p.type==="info") return p.title.replace(/[^\w\s'&]/g,"")+". "+p.text;
+  if(p.type==="result") return $("page").innerText;
+  let t=p.q+" ";
+  if(p.opts) t+=p.opts.map((o,k)=>"Choice "+"ABCDE"[k]+". "+o+".").join(" ");
+  return t;
+}
+function tableHTML(t){return t?"<table class='tbl'>"+t.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")+"</table><br>":"";}
+function isCorrect(q){ return answers[pages.indexOf(q)]===q.ans; }
+
+function render(){
+  const p=pages[i], m=$("page"); let h="";
+  $("fill").style.width=(i/(pages.length-1)*100)+"%";
+  $("back").disabled=i===0;
+  $("next").textContent=i===pages.length-1?"Done ✅":"Next ➡";
+  $("next").disabled=false;
+  if(p.type==="info"){
+    h=`<span class="tag">${p.tag}</span>
+       <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
+       <p class="big">${p.text}</p>${tableHTML(p.table)}`;
+  } else if(p.type==="result"){
+    let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
+    h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
+       <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
+       <p class="big">${s>=CONFIG.passScore?"Wow! You are a math star! ⭐":"Good try! Let's practice again. 💪"}</p>
+       <button class="check" onclick="i=0;render()">Start over</button>`;
+    $("next").disabled=true;
+  } else {
+    h=`<span class="tag">${p.tag}</span>
+       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
+    p.opts.forEach((o,k)=>{
+      let c="opt"; const chosen=answers[i]===k;
+      if(chosen) c+=" sel";
+      if(p.mode==="practice"&&done[i]){ if(k===p.ans) c+=" good"; else if(chosen) c+=" bad"; }
+      h+=`<button class="${c}" onclick="pick(${k})">${"ABCDE"[k]}. ${o}</button>`;
+    });
+    if(p.mode==="practice") h+=`<div class="fb" id="fb"></div>`;
+    $("next").disabled = (p.mode==="practice") ? !done[i] : answers[i]==null;
+  }
+  m.innerHTML=h;
+  if(p.mode==="practice"&&done[i]) showFB();
+  window.scrollTo(0,0);
+}
+function pick(k){ answers[i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
+function showFB(){
+  const ok=isCorrect(pages[i]), f=$("fb"); if(!f) return;
+  f.style.color=ok?"#1e9e45":"#c0262b";
+  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the Concept pages again.";
+  $("next").disabled=false;
+}
+$("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
+$("back").onclick=()=>{ if(i>0){i--;render();} };
+render();
+</script>
+</body>
+</html>

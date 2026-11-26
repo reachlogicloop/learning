@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson</title>
+<style>
+  body{margin:0;font-family:Verdana,Arial,sans-serif;background:#eaf4ff;color:#1b2a41}
+  header{background:#2b7de9;color:#fff;padding:12px 20px;font-size:22px}
+  #bar{height:12px;background:#cfe3fb}#fill{height:100%;width:0;background:#34c759;transition:.3s}
+  main{max-width:820px;margin:20px auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 4px 14px #0002;min-height:380px}
+  .tag{display:inline-block;background:#ffd23f;border-radius:20px;padding:4px 16px;font-weight:bold;margin-bottom:12px}
+  h1{margin:8px 0 16px}
+  .big{font-size:30px;line-height:1.5}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:14px}
+  .opt{display:block;width:100%;text-align:left;font-size:26px;padding:16px;margin:10px 0;background:#f2f6fb;border:3px solid #9bb8dd}
+  .opt:hover{background:#dcebff}.opt.sel{border-color:#2b7de9;background:#cfe3ff}
+  .opt.good{background:#c9f5d2;border-color:#34c759}.opt.bad{background:#ffd6d6;border-color:#e5484d}
+  #nav{display:flex;justify-content:space-between;max-width:820px;margin:0 auto 30px;padding:0 10px}
+  .nb{font-size:26px;padding:14px 36px;background:#34c759;color:#fff}
+  .nb.back{background:#8aa0bd}.nb:disabled{background:#c5ccd6;cursor:not-allowed}
+  .spk{font-size:28px;background:#ffd23f;padding:8px 18px;margin-right:12px;vertical-align:middle}
+  .fb{font-size:26px;font-weight:bold;margin-top:14px;min-height:40px}
+  .tbl{font-size:22px;border-collapse:collapse;width:100%}.tbl td{border:3px solid #2b7de9;padding:8px 14px}
+  .tbl tr:first-child td{background:#fff6d6;font-weight:bold}
+  .tbl td:first-child{font-weight:bold}
+  .check{font-size:24px;padding:12px 28px;background:#2b7de9;color:#fff;margin-top:10px}
+</style>
+</head>
+<body>
+<header id="hdr"></header>
+<div id="bar"><div id="fill"></div></div>
+<main id="page"></main>
+<div id="nav">
+  <button class="nb back" id="back">⬅ Back</button>
+  <button class="nb" id="next">Next ➡</button>
+</div>
+
+<script>
+/* =====================================================
+   CONFIG: CHANGE ONLY THIS SECTION FOR A NEW LESSON
+   info(tag, title, text, table?)
+   mc(mode, question, [options], answerNumber, table?)
+   table = [["Row label","Row info", ...], ...]  (any number of columns;
+   the first row is shown as a heading row)
+   ===================================================== */
+const PANTS = [
+  ["Length","Where the pants end"],
+  ["Shorts","Above the knee"],
+  ["¾ length","Below the knee, above the ankle"],
+  ["Full length","At the ankle"]
+];
+const CLASSES = [
+  ["Order shown","Class"],
+  ["1st","Class of 2022"],
+  ["2nd","Class of 2023"],
+  ["3rd","Class of 2024"]
+];
+const SCHEDULE = [
+  ["Employee","Mon","Tues","Wed"],
+  ["Avery","Open–3pm","Open–3pm","12pm–6pm"],
+  ["Billson","2pm–Close","Open–3pm","2pm–Close"],
+  ["Ellery","2pm–Close","12pm–6pm","2pm–Close"],
+  ["Kelli","Open–3pm","3pm–Close","Open–2pm"]
+];
+
+const CONFIG = {
+  title: "💼 Functional Math 5: Vocational (8)",
+  passScore: 4,
+
+  pages: [
+    info("Welcome","Let's Learn Math for Work!","Today you will learn math words and skills for a job. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
+
+    // ---- VOCABULARY ----
+    info("Vocabulary","Three-Quarter ¾","Three-quarter means 3 out of 4 equal parts. ¾ length pants are not short and not long."),
+    info("Vocabulary","Restock 📦","To restock means to put more items on the shelf."),
+    info("Vocabulary","Newest to Oldest 📅","Newest to oldest means the newest is first and the oldest is last. 2024, 2023, 2022 is newest to oldest."),
+    info("Vocabulary","Paycheck 💵","A paycheck is the money you get for working."),
+    info("Vocabulary","Income Tax 🏛️","Income tax is money taken out of your paycheck. It goes to the government."),
+
+    // ---- CONCEPTS ----
+    info("Concept","Pants Lengths","¾ length pants end below the knee and above the ankle.",PANTS),
+    info("Concept","Why Restock?","Customers can only buy what they see. If a shelf is empty, they think there is none left. Stocked shelves help the business make money."),
+    info("Concept","Order by Year","Look at the first and last year. If the list goes from smaller to bigger, it is oldest to newest. If it goes from bigger to smaller, it is newest to oldest.",CLASSES),
+    info("Concept","Reading a Work Schedule","Find the name in the first column. Then move right to the day. The box shows the work hours.",SCHEDULE),
+
+    // ---- PRACTICE ----
+    info("Practice","Practice Time! ⭐","Now you try. You will see if you are right. It is OK to make mistakes."),
+    mc("practice","Pants that end at the ankle are:",["Shorts","Full length","¾ length"],1,PANTS),
+    mc("practice","What time does Avery work on Tuesday?",["Open–3pm","12pm–6pm","3pm–Close"],0,SCHEDULE),
+    mc("practice","Is 2024, 2023, 2022 newest to oldest?",["👍 Yes","👎 No"],0),
+    mc("practice","What is income tax?",["Money taken out of a paycheck","A gift","A kind of shirt"],0),
+    mc("practice","What does restock mean?",["Put more items on the shelf","Throw things away","Close the store"],0),
+
+    // ---- TEST ----
+    info("Test","Test Time! 📝","Now show what you know. You will see your score at the end. Do your best!"),
+    mc("test","Which pants are ¾ length?",["Pants that end at the ankle","Pants that end below the knee, above the ankle","Pants that end above the knee"],1,PANTS),
+    mc("test","Why is it important to bring items from the back room and put them out for people to buy if there is free space?",["People can only buy what they can see","Free space usually means there isn't any left to buy; they won't know there is more in the back room","When people buy things, a business makes money","All of the above"],3),
+    mc("test","Is this organized newest to oldest? (Class of 2022, Class of 2023, Class of 2024)",["👍 Yes","👎 No, it goes oldest to newest"],1,CLASSES),
+    mc("test","What is Income Tax?",["Money added to a paycheck","The money paid when buying something","Money subtracted from a paycheck"],2),
+    mc("test","What time does Kelli work on Wednesday?",["12pm–6pm","3pm–Close","Open–2pm","2pm–Close"],2,SCHEDULE),
+
+    {type:"result"}
+  ]
+};
+
+/* ============ HELPERS (do not change) ============ */
+function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
+function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
+
+/* ============ ENGINE (do not change) ============ */
+const pages=CONFIG.pages; let i=0; const answers={}, done={};
+const $=id=>document.getElementById(id);
+const testQs=pages.filter(p=>p.mode==="test");
+document.title=CONFIG.title.replace(/^[^\w]+/,""); $("hdr").textContent=CONFIG.title;
+
+function speak(t){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.rate=0.85; speechSynthesis.speak(u);
+}
+function readText(p){
+  if(p.type==="info") return p.title.replace(/[^\w\s'&]/g,"")+". "+p.text;
+  if(p.type==="result") return $("page").innerText;
+  let t=p.q+" ";
+  if(p.opts) t+=p.opts.map((o,k)=>"Choice "+"ABCDE"[k]+". "+o+".").join(" ");
+  return t;
+}
+function tableHTML(t){return t?"<table class='tbl'>"+t.map(r=>"<tr>"+r.map(c=>`<td>${c}</td>`).join("")+"</tr>").join("")+"</table><br>":"";}
+function isCorrect(q){ return answers[pages.indexOf(q)]===q.ans; }
+
+function render(){
+  const p=pages[i], m=$("page"); let h="";
+  $("fill").style.width=(i/(pages.length-1)*100)+"%";
+  $("back").disabled=i===0;
+  $("next").textContent=i===pages.length-1?"Done ✅":"Next ➡";
+  $("next").disabled=false;
+  if(p.type==="info"){
+    h=`<span class="tag">${p.tag}</span>
+       <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
+       <p class="big">${p.text}</p>${tableHTML(p.table)}`;
+  } else if(p.type==="result"){
+    let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
+    h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
+       <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
+       <p class="big">${s>=CONFIG.passScore?"Wow! You are a math star! ⭐":"Good try! Let's practice again. 💪"}</p>
+       <button class="check" onclick="i=0;render()">Start over</button>`;
+    $("next").disabled=true;
+  } else {
+    h=`<span class="tag">${p.tag}</span>
+       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
+    p.opts.forEach((o,k)=>{
+      let c="opt"; const chosen=answers[i]===k;
+      if(chosen) c+=" sel";
+      if(p.mode==="practice"&&done[i]){ if(k===p.ans) c+=" good"; else if(chosen) c+=" bad"; }
+      h+=`<button class="${c}" onclick="pick(${k})">${"ABCDE"[k]}. ${o}</button>`;
+    });
+    if(p.mode==="practice") h+=`<div class="fb" id="fb"></div>`;
+    $("next").disabled = (p.mode==="practice") ? !done[i] : answers[i]==null;
+  }
+  m.innerHTML=h;
+  if(p.mode==="practice"&&done[i]) showFB();
+  window.scrollTo(0,0);
+}
+function pick(k){ answers[i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
+function showFB(){
+  const ok=isCorrect(pages[i]), f=$("fb"); if(!f) return;
+  f.style.color=ok?"#1e9e45":"#c0262b";
+  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the Concept pages again.";
+  $("next").disabled=false;
+}
+$("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
+$("back").onclick=()=>{ if(i>0){i--;render();} };
+render();
+</script>
+</body>
+</html>
