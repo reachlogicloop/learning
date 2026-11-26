@@ -22,9 +22,9 @@
   .spk{font-size:28px;background:#ffd23f;padding:8px 18px;margin-right:12px;vertical-align:middle}
   .fb{font-size:26px;font-weight:bold;margin-top:14px;min-height:40px}
   .tbl{font-size:22px;border-collapse:collapse;width:100%}.tbl td{border:3px solid #2b7de9;padding:8px 14px}
-  .tbl td:first-child{background:#fff6d6;font-weight:bold;width:30%}
+  .tbl td:first-child{background:#fff6d6;font-weight:bold;width:40%}
   .check{font-size:24px;padding:12px 28px;background:#2b7de9;color:#fff;margin-top:10px}
-  .clk{display:block;margin:10px 0}
+  svg{cursor:crosshair;background:#fff}
 </style>
 </head>
 <body>
@@ -39,63 +39,62 @@
 <script>
 /* =====================================================
    CONFIG: CHANGE ONLY THIS SECTION FOR A NEW LESSON
-   info(tag, title, text, table?, clock?)
-   mc(mode, question, [options], answerNumber, table?, clock?)
-   table = [["Row label","Row info"], ...]
-   clock = [hour, minute]
+   info(tag, title, text, table?)
+   mc(mode, question, [options], answerNumber, table?)
+   bucket(mode, question)   click-to-draw half-full line
    ===================================================== */
-const EVENT = [
-  ["📚 Event","LIBRARY EVENT: Life of a Social Media Influencer"],
-  ["📍 Where","Logan Room"],
-  ["📅 When","July 15, 4:00–5:00pm (6-week series, presentation 4/6)"],
-  ["👥 Age Group","Young Adults"],
-  ["ℹ️ About","Explore the life of a social media influencer. Learn about technology, networking, and audience-building skills to create a profitable, successful online career."],
-  ["✍️ Sign Up","Registration not required"]
+const AISLES = [
+  ["🏠 Accents","Aisle 42"],
+  ["🛁 Bathroom","Aisle 47"],
+  ["🛏️ Bedding","Aisle 37"],
+  ["🛋️ Furniture","Aisle 90"],
+  ["🍽️ Kitchenware","Aisle 20"]
 ];
 
 const CONFIG = {
-  title: "📚 Functional Reading: Event Information",
+  title: "💼 Functional Math 5: Vocational (2)",
   passScore: 4,
 
   pages: [
-    info("Welcome","Let's Learn to Read Event Information!","Today you will learn words and skills for reading a flyer about an event. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
+    info("Welcome","Let's Learn Math for Work!","Today you will learn math words and skills for a job. First vocabulary, then concepts, then practice, then a test. Tap the speaker button to hear any page."),
 
     // ---- VOCABULARY ----
-    info("Vocabulary","Event 🎉","An event is something that happens at a certain place and time."),
-    info("Vocabulary","Series 🔢","A series is a group of events that happen one after another."),
-    info("Vocabulary","Registration ✍️","Registration means signing up. 'Registration not required' means you do not have to sign up."),
-    info("Vocabulary","Young Adults 🧑","Young adults are teenagers and people in their early twenties. The event is made for this age group."),
-    info("Vocabulary","Social Media Influencer 📱","An influencer is a person who shares posts online. Many people follow and watch them."),
+    info("Vocabulary","Aisle 🛒","An aisle is a long walkway between shelves. Workers use aisle numbers to find things."),
+    info("Vocabulary","Barcode ||||","A barcode is a code of numbers and lines. A scanner reads it."),
+    info("Vocabulary","Digit 🔢","A digit is one number. The number 305 has 3 digits."),
+    info("Vocabulary","Expired ⌛","Expired means too old to use. If today is after the date, it is expired."),
+    info("Vocabulary","Close 🔒","At a store, close means the time the store shuts. Workers also clean up and put things away."),
 
     // ---- CONCEPTS ----
-    info("Concept","Reading an Event Flyer","A flyer tells you what, where, when, and who. Look for each one in the flyer.",EVENT),
-    info("Concept","Where and When","WHERE tells the place. WHEN tells the date and time. 4:00–5:00pm means from 4pm to 5pm."),
-    info("Concept","What Does 4/6 Mean?","4/6 means 4 out of 6. This is the 4th talk in a series of 6 talks."),
-    info("Concept","Four Kinds of Questions","SUMMARY: What is the main idea? DETAIL: Find the answer in the flyer. IDENTIFY FACTS: Find the exact facts. TRANSFER: Use what you learned in real life."),
+    info("Concept","Finding the Aisle","Use the chart. Find the item, then read the aisle number next to it.",AISLES),
+    info("Concept","Counting Digits","To check a code, count every digit one by one. A 16-digit code has exactly 16 numbers."),
+    info("Concept","Half Full","Half full means the middle. The line is halfway between the bottom and the top."),
+    info("Concept","Reading Dates","Compare the date on the package with today's date. If the package date is before today, it is expired."),
 
     // ---- PRACTICE ----
     info("Practice","Practice Time! ⭐","Now you try. You will see if you are right. It is OK to make mistakes."),
-    mc("practice","DETAIL: Where is the event?",["Logan Room","The gym","The cafeteria"],0,EVENT),
-    mc("practice","DETAIL: Who is the event for?",["Little kids","Young adults","Grandparents"],1,EVENT),
-    mc("practice","IDENTIFY FACTS: Do you have to sign up?",["👍 Yes","👎 No"],1,EVENT),
-    mc("practice","SUMMARY: What is the event about?",["Being a social media influencer","Cooking dinner","Playing soccer"],0,EVENT),
-    mc("practice","What does 4/6 mean?",["It is the 4th talk out of 6","It costs $4","It starts at 4:06"],0,EVENT),
+    mc("practice","Which aisle has Kitchenware?",["Aisle 42","Aisle 37","Aisle 20"],2,AISLES),
+    mc("practice","Which code has 10 digits?",["123456789","1234567890","12345678901"],1),
+    bucket("practice","Click on the bucket to draw a line for half full."),
+    mc("practice","Today is MAR 5. The milk says MAR 1. Is the milk expired?",["👍 Not expired","👎 Expired"],1),
+    mc("practice","A schedule says a worker starts at open. What does open mean?",["The time the store opens for customers","When the sun rises","When lunch starts"],0),
 
     // ---- TEST ----
     info("Test","Test Time! 📝","Now show what you know. You will see your score at the end. Do your best!"),
-    mc("test","SUMMARY: What is happening at the library?",["A talk about the life of a social media influencer","A book sale","A movie night"],0,EVENT),
-    mc("test","DETAIL: What day is this event?",["July 4","July 15","June 15"],1,EVENT),
-    mc("test","IDENTIFY FACTS: When does this event occur?",["July 15, 4:00–5:00pm","July 15, 5:00–6:00pm","July 4, 4:00–5:00pm"],0,EVENT),
-    mc("test","TRANSFER INFORMATION: How would someone find more events like this?",["Check the library website or ask a librarian","Look in the refrigerator","Guess"],0),
-    mc("test","IDENTIFY FACTS: Do you need to register for this event?",["👍 Yes","👎 No, registration is not required"],1,EVENT),
+    mc("test","What aisle of the warehouse will you find bedding to fill an order?",["Aisle 20","Aisle 42","Aisle 47","Aisle 37","Aisle 90"],3,AISLES),
+    mc("test","Erika's job is to scan a 16-digit code on packages. Circle the 16-digit code.",["5 60543201 0007","50160543201000701","5016054320100701"],2),
+    bucket("test","Click on the bucket to draw a line to mark \"half full.\""),
+    mc("test","Today is FEB 15. The package says FEB 10. Expired or not?",["👍 Not expired","👎 Expired"],1),
+    mc("test","Jana's schedule says she is working 3pm to close. What does \"close\" mean?",["Whenever customers stop coming in","When the sun sets","The time the store closes and everything is clean and put away"],2),
 
     {type:"result"}
   ]
 };
 
 /* ============ HELPERS (do not change) ============ */
-function info(tag,title,text,table,clock){return {type:"info",tag,title,text,table,clock};}
-function mc(mode,q,opts,ans,table,clock){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table,clock};}
+function info(tag,title,text,table){return {type:"info",tag,title,text,table};}
+function mc(mode,q,opts,ans,table){return {mode,type:"mc",tag:mode==="test"?"Test":"Practice",q,opts,ans,table};}
+function bucket(mode,q){return {mode,type:"bucket",tag:mode==="test"?"Test":"Practice",q};}
 
 /* ============ ENGINE (do not change) ============ */
 const pages=CONFIG.pages; let i=0; const answers={}, done={};
@@ -116,22 +115,11 @@ function readText(p){
   return t;
 }
 function tableHTML(t){return t?"<table class='tbl'>"+t.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")+"</table><br>":"";}
-function clockHTML(c){
-  if(!c) return "";
-  const [h,m]=c, ha=((h%12)+m/60)*30, ma=m*6;
-  let s=`<svg class="clk" width="240" height="240" viewBox="0 0 200 200">
-    <circle cx="100" cy="100" r="92" fill="#fff" stroke="#1d5fb8" stroke-width="6"/>`;
-  for(let n=1;n<=12;n++){
-    const a=n*30*Math.PI/180;
-    s+=`<text x="${100+70*Math.sin(a)}" y="${100-70*Math.cos(a)+7}" font-size="20" font-weight="bold" text-anchor="middle">${n}</text>`;
-  }
-  s+=`<line x1="100" y1="100" x2="100" y2="52" stroke="#1b2a41" stroke-width="8" stroke-linecap="round" transform="rotate(${ha} 100 100)"/>
-      <line x1="100" y1="100" x2="100" y2="30" stroke="#e5484d" stroke-width="5" stroke-linecap="round" transform="rotate(${ma} 100 100)"/>
-      <circle cx="100" cy="100" r="6" fill="#1b2a41"/></svg>`;
-  return s;
+function isCorrect(q){
+  const a=answers[pages.indexOf(q)];
+  if(q.type==="mc") return a===q.ans;
+  return a!=null && a>=130 && a<=215;
 }
-function isCorrect(q){ return answers[pages.indexOf(q)]===q.ans; }
-
 function render(){
   const p=pages[i], m=$("page"); let h="";
   $("fill").style.width=(i/(pages.length-1)*100)+"%";
@@ -141,23 +129,32 @@ function render(){
   if(p.type==="info"){
     h=`<span class="tag">${p.tag}</span>
        <h1><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.title}</h1>
-       <p class="big">${p.text}</p>${clockHTML(p.clock)}${tableHTML(p.table)}`;
+       <p class="big">${p.text}</p>${tableHTML(p.table)}`;
   } else if(p.type==="result"){
     let s=0; testQs.forEach(q=>{ if(isCorrect(q)) s++; });
     h=`<span class="tag">Results</span><h1>🎉 Great job!</h1>
        <p class="big">You got <b>${s} out of ${testQs.length}</b> correct.</p>
-       <p class="big">${s>=CONFIG.passScore?"Wow! You are a reading expert! ⭐":"Good try! Let's practice again. 💪"}</p>
+       <p class="big">${s>=CONFIG.passScore?"Wow! You are a math star! ⭐":"Good try! Let's practice again. 💪"}</p>
        <button class="check" onclick="i=0;render()">Start over</button>`;
     $("next").disabled=true;
   } else {
     h=`<span class="tag">${p.tag}</span>
-       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${clockHTML(p.clock)}${tableHTML(p.table)}`;
-    p.opts.forEach((o,k)=>{
-      let c="opt"; const chosen=answers[i]===k;
-      if(chosen) c+=" sel";
-      if(p.mode==="practice"&&done[i]){ if(k===p.ans) c+=" good"; else if(chosen) c+=" bad"; }
-      h+=`<button class="${c}" onclick="pick(${k})">${"ABCDE"[k]}. ${o}</button>`;
-    });
+       <p class="big"><button class="spk" onclick="speak(readText(pages[i]))">🔊</button>${p.q}</p>${tableHTML(p.table)}`;
+    if(p.type==="mc"){
+      p.opts.forEach((o,k)=>{
+        let c="opt"; const chosen=answers[i]===k;
+        if(chosen) c+=" sel";
+        if(p.mode==="practice"&&done[i]){ if(k===p.ans) c+=" good"; else if(chosen) c+=" bad"; }
+        h+=`<button class="${c}" onclick="pick(${k})">${"ABCDE"[k]}. ${o}</button>`;
+      });
+    } else {
+      const y=answers[i];
+      h+=`<svg id="bk" width="260" height="300" viewBox="0 0 260 300" onclick="bucketClick(event)">
+        <path d="M40 60 L60 270 Q130 295 200 270 L220 60 Z" fill="#6fb1ff" stroke="#1d5fb8" stroke-width="5"/>
+        <ellipse cx="130" cy="60" rx="90" ry="14" fill="#a9d1ff" stroke="#1d5fb8" stroke-width="5"/>
+        ${y!=null?`<line x1="35" x2="225" y1="${y}" y2="${y}" stroke="#e5484d" stroke-width="6"/>`:""}</svg>`;
+      if(p.mode==="practice") h+=`<br><button class="check" onclick="checkBucket()">Check ✔</button>`;
+    }
     if(p.mode==="practice") h+=`<div class="fb" id="fb"></div>`;
     $("next").disabled = (p.mode==="practice") ? !done[i] : answers[i]==null;
   }
@@ -166,10 +163,16 @@ function render(){
   window.scrollTo(0,0);
 }
 function pick(k){ answers[i]=k; if(pages[i].mode==="practice") done[i]=true; render(); }
+function bucketClick(e){
+  const r=$("bk").getBoundingClientRect();
+  answers[i]=Math.round((e.clientY-r.top)*300/r.height);
+  done[i]=false; render();
+}
+function checkBucket(){ if(answers[i]==null) return; done[i]=true; render(); }
 function showFB(){
   const ok=isCorrect(pages[i]), f=$("fb"); if(!f) return;
   f.style.color=ok?"#1e9e45":"#c0262b";
-  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the flyer again.";
+  f.textContent=ok?"✅ Yes! Great job!":"❌ Not quite. Look at the Concept pages again.";
   $("next").disabled=false;
 }
 $("next").onclick=()=>{ if(i<pages.length-1){i++;render();} };
